@@ -29,14 +29,24 @@ The bot automatically converts every message to lower case and ignores apostroph
     #u likes apples and #1 and #2;#un likes apples and #1 and #2;
     5n>i like apples and (.*)#1 and (.*)#2
 
+**Mocking Sarcastic Reply**
+
 `alternate` is a special resonse in which it takes the trigger, alternates the case and replies back with aLtErNaTiNg case. You can repeat responses, however you cannot repeat triggers in different blocks. The bot goes through triggers.txt top to bottom, so higher up triggers will have precedence over those below it.
+
+**User Specific Triggers**
 
 The reply block with `u>asdf#1234;arst#1234` will ony apply to those users while the reply block with `u!>user#1234` will not apply to that user. The user allow/disallow line should always be the second line of each trigger block, otherwise it will not be recognised. It doesn***REMOVED***t make sense to have both a disallow and an allow line, but if there is, the disallow line will take precedence. Having no allow/disallow line with have the triggers apply to all users.
 
+**Send Rather Than Reply Flag**
+
 `sm>` is a tag that will have the reply only send a message to the channel, rather than replying to the person, which pings them. So, the alternate response in the third response black will only resend the person***REMOVED***s message (with alternating case), but the "response number two with spaces" will ping the user and in the same message literally reply with "Response number two with spaces".
+
+**"Variables" and Custom Pinging**
 
 The bottom reply block has variables in the triggers and responses. The `#un` tag will be the user***REMOVED***s username, while the `#u` tag will ping the user. The tags with a # followed by a number act like variables the way they are in the response block. You can alter the regex to have the variable only match a certain pattern, but that can get really complicated, so the example only shows a basic wild card that will match anything.
 
 The bottom reply block also has a flag on the bottom trigger to only reply when there are 5 messages containing the trigger from the same person.
 
 Any regex string should work. Have a look at https://regex101.com/ or consult Google for more information on regexes.
+
+I***REMOVED***ve also provided a sample of a trigger file which is mainly clean and free of any obscenities.
