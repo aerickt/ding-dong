@@ -94,10 +94,10 @@ var alternateCase = function (s) {
     return chars.join("");
 };
 
-function replyFromArray(i, message, user, replyType, variables) {
+function replyFromArray(i, msg, user, replyType, variables) {
 
     var response = replies[i][responseNum % replies[i].length];
-    var messageReply;
+    var msgReply;
 
     if (userAllow[i] === "some"  || userAllow[i] === "all" || userAllow[i].includes(user)) {
 
@@ -108,53 +108,53 @@ function replyFromArray(i, message, user, replyType, variables) {
             }
 
             if (response.includes("alternate")) {
-                messageReply = alternateCase(message.content.replace("$altme", ""));
+                msgReply = alternateCase(msg.content.replace("$altme", ""));
             }
 
             else if (response.includes("triggerlist")) {
-                messageReply = { files: [ddhome+"/triggers.txt"] };
+                msgReply = { files: [ddhome+"/triggers.txt"] };
             }
 
             else if (response.includes("#")) {
                 var variableCount = (response.match(/#/g) || []).length; 
-                messageReply = response;
+                msgReply = response;
 
                 for (var d = 0; d < variableCount; d++) {
 
                     placeHolder = "#" + (d + 1).toString();
 
-                    while (messageReply.includes(placeHolder)) {
-                        messageReply = messageReply.replace(placeHolder,variables[d]);
+                    while (msgReply.includes(placeHolder)) {
+                        msgReply = msgReply.replace(placeHolder,variables[d]);
                     }
 
                 }
 
-                var userName = message.author.username;
+                var userName = msg.author.username;
 
-                while (messageReply.includes("#un")) {
-                    messageReply = messageReply.replace("#un",userName);
+                while (msgReply.includes("#un")) {
+                    msgReply = msgReply.replace("#un",userName);
                 }
 
-                var userPing = "<@!" + message.author.id + ">"
+                var userPing = "<@!" + msg.author.id + ">"
 
-                while (messageReply.includes("#u")) {
-                    messageReply = messageReply.replace("#u",userPing);
+                while (msgReply.includes("#u")) {
+                    msgReply = msgReply.replace("#u",userPing);
                 }
 
             }
 
-            else messageReply = response;
+            else msgReply = response;
 
             if (response.includes("sm>") || replyType === "send") {
 
-                if (typeof messageReply === ***REMOVED***string***REMOVED***) {
-                    messageReply = messageReply.replace("sm>","");
+                if (typeof msgReply === ***REMOVED***string***REMOVED***) {
+                    msgReply = msgReply.replace("sm>","");
                 }
 
-                message.channel.send(messageReply);
+                msg.channel.send(msgReply);
             }
 
-            else message.reply(messageReply);
+            else msg.reply(msgReply);
 
             userMatch = true;
 
@@ -183,18 +183,21 @@ function countTrigger(i, a, user) {
 
 }
 
-client.on(***REMOVED***message***REMOVED***, message => {
+client.on(***REMOVED***message***REMOVED***, msg => {
 
-    if (message.author.bot) return;
+    if (msg.author.bot) return;
 
     var replyType = "reply";
-    var newMessage = message.content.toLowerCase();
-    var user = message.author.username+"#"+message.author.discriminator;
+    var newMessage = msg.content.toLowerCase();
+    var user = msg.author.username+"#"+msg.author.discriminator;
 
-    if (message.reference !== null && newMessage === "$altme") {
-        message.channel.messages.fetch(message.reference.messageID)
-            .then(message => message.reply(alternateCase(message.content)))
-            .catch(console.error);
+    if (msg.reference !== null && newMessage === "$altme") {
+        msg.channel.messages.fetch(msg.reference.messageID)
+            .then(refMsg => {
+
+                if (!refMsg.author.bot) refMsg.reply(alternateCase(refMsg.content));
+
+            });
 
         return;
 
@@ -231,7 +234,7 @@ client.on(***REMOVED***message***REMOVED***, message => {
                     countTrigger(i, a, user);
 
                     if (tempTriggerCount % triggerThresh[i][a] === 0) {
-                        replyFromArray(i, message, user, replyType);
+                        replyFromArray(i, msg, user, replyType);
                     }
 
                     if (userMatch === true) return;
@@ -275,7 +278,7 @@ client.on(***REMOVED***message***REMOVED***, message => {
                     countTrigger(i, a, user);
 
                     if (tempTriggerCount % triggerThresh[i][a] === 0) {
-                        replyFromArray(i, message, user, replyType, variables);
+                        replyFromArray(i, msg, user, replyType, variables);
                     }
 
                 }
