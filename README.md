@@ -29,9 +29,11 @@ The bot automatically converts every message to lower case and ignores apostroph
     #u likes apples and #1 and #2;#un likes apples and #1 and #2;
     5n>i like apples and (.*)#1 and (.*)#2
 
+You can repeat responses, however you cannot repeat triggers in different blocks. The bot goes through triggers.txt top to bottom, so higher up triggers will have precedence over those below it. The bot will only reply to one trigger and will never reply more than once.
+
 **Mocking Sarcastic Reply**
 
-`alternate` is a special resonse in which it takes the trigger, alternates the case and replies back with aLtErNaTiNg case. You can repeat responses, however you cannot repeat triggers in different blocks. The bot goes through triggers.txt top to bottom, so higher up triggers will have precedence over those below it.
+`alternate` is a special resonse in which it takes the trigger, alternates the case and replies back with aLtErNaTiNg case.
 
 **User Specific Triggers**
 
