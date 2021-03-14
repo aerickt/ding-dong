@@ -1,7 +1,7 @@
 Ding Dong You Are Wrong
 ======
 
-**A Discord Bot for Immature Teenagers to Point Out Innuendos**
+**A Discord Bot for Immature Teenagers to ~~Bully~~ Tease Their Friends**
 
 This is my first time coding in node, so I***REMOVED***m sure there are several things that could be improved. I really don***REMOVED***t like the fact that I didn***REMOVED***t use the json file format for the trigger file; that would have made some aspects of this bot easier (would have saved about 25 lines that I use to process the trigger file and possibly a lot of time to load the triggers and replies). But it also would have made some things maybe a little more complicated, so I***REMOVED***m not going to do anything about that for now.
 
