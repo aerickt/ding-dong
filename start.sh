@@ -1,6 +1,6 @@
 #!/bin/bash
 ddhome="$HOME/ding-dong"
-path="var ddhome = $ddhome;"
+path="var ddhome = ***REMOVED***$ddhome***REMOVED***;"
 
 echo "$path" > "$ddhome/index.js"
 cat "$ddhome/index-nokey.js" >> "$ddhome/index.js"
