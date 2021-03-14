@@ -54,3 +54,13 @@ The bottom reply block also has a flag on the bottom trigger to only reply when 
 Any regex string should work. Have a look at https://regex101.com/ or consult Google for more information on regexes.
 
 I***REMOVED***ve also provided a sample of a trigger file which is mainly clean and free of any obscenities.
+
+**Running Instructions**
+
+If you***REMOVED***re on Linux (running on a Raspberry Pi, for example), you can easily just create a file called "priv.txt" with the line for your Discord token login. It should look something like the following:
+
+    client.login("your-private-token-goes-here");
+
+Then afterwards, just run start.sh and you***REMOVED***re good. This should also work on Mac, but I haven***REMOVED***t tested it so no guarantees.
+
+If you***REMOVED***re on Windows, then simply just edit index-nokey.js and add `var ddhome = ***REMOVED***/path/to/ding-dong***REMOVED***` right at the top, and also add the client log in line right at the bottom.
