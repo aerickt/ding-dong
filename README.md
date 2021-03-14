@@ -35,7 +35,7 @@ You can repeat responses, however you cannot repeat triggers in different blocks
 
 **Mocking Sarcastic Reply**
 
-`alternate` is a special resonse in which it takes the trigger, alternates the case and replies back with aLtErNaTiNg case.
+`alternate` is a special resonse in which it takes the trigger, alternates the case and replies back with aLtErNaTiNg case. Replying to a message with the trigger `$altme` will alternate the case of the message you***REMOVED***ve replied to. Unfortunately, this is all handled in the code. I may end up changing that because it feels wrong to just have a trigger in the code itself rather than in the triggers file.
 
 **User Specific Triggers**
 
