@@ -5,6 +5,8 @@ Ding Dong You Are Wrong
 
 This is my first time coding in node, so I***REMOVED***m sure there are several things that could be improved. I really don***REMOVED***t like the fact that I didn***REMOVED***t use the json file format for the trigger file; that would have made some aspects of this bot easier (would have saved about 25 lines that I use to process the trigger file and possibly a lot of time to load the triggers and replies). But it also would have made some things maybe a little more complicated, so I***REMOVED***m not going to do anything about that for now.
 
+Also, because I don***REMOVED***t code very often, I get the feeling that this is one giant bodge.
+
 All triggers use regexes. Any phrases or words without any regexes characters or rules surrounding them is just a regular string that the bot will try and match. A new line indicates a separation of a different reply block. The first line of every block are the responses that the bot will cycle through with the triggers and conditions below it.
 
 The minimum number of responses for each block is 1 and there is no maximum.
