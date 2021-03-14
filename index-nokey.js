@@ -66,10 +66,9 @@ for (const i in triggers) {
         triggerCount[i][a] = "";
 
         if (triggers[i][a].includes("n>")) {
-            //var tempArray = triggers[i][a].split("n>");
-            //triggers[i][a] = tempArray[1];
-            triggers[i][a] = triggers[i][a].split("n>")[1]
-            triggerThresh[i][a] = Number(triggers[i][a].split("n>")[0]);
+            var tempArray = triggers[i][a].split("n>");
+            triggers[i][a] = tempArray[1];
+            triggerThresh[i][a] = Number(tempArray [0]);
         }
 
     }
@@ -191,6 +190,15 @@ client.on(***REMOVED***message***REMOVED***, message => {
     var replyType = "reply";
     var newMessage = message.content.toLowerCase();
     var user = message.author.username+"#"+message.author.discriminator;
+
+    if (message.reference !== null && newMessage === "$altme") {
+        message.channel.messages.fetch(message.reference.messageID)
+            .then(message => message.reply(alternateCase(message.content)))
+            .catch(console.error);
+
+        return;
+
+    }
 
     fs.appendFileSync(ddhome+***REMOVED***/log.txt***REMOVED***, newMessage+"\n");
 
