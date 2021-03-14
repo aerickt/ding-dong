@@ -7,7 +7,7 @@ This is my first time coding in node, so I***REMOVED***m sure there are several 
 
 Also, because I don***REMOVED***t code very often, I get the feeling that this is one giant bodge.
 
-All triggers are found in triggers.txt and use regexes. Though, any phrases or words without any regexes characters or rules surrounding them is just a regular string that the bot will try and match. A new line just indicates a separation of a different reply block and the first line of every block are the responses that the bot will cycle through with the triggers and conditions below it.
+All triggers are found in triggers.txt and use regexes. Though, any phrases or words without any regexes characters or rules surrounding them is just a regular string that the bot will try and match. A new line just indicates a separation of a different reply block. In each reply block the first line contains the responses that the bot will cycle through while the triggers and conditions are below that first line.
 
 The minimum number of responses for each block is 1 and there is no maximum.
 
