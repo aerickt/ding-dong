@@ -37,7 +37,7 @@ You can repeat responses, however you cannot repeat triggers in different blocks
 
 **User Specific Triggers**
 
-The reply block with `u>asdf#1234;arst#1234` will ony apply to those users while the reply block with `u!>user#1234` will not apply to that user. The user allow/disallow line should always be the second line of each trigger block, otherwise it will not be recognised. It doesn***REMOVED***t make sense to have both a disallow and an allow line, but if there is, the disallow line will take precedence. Having no allow/disallow line with have the triggers apply to all users.
+The reply block with `u>asdf#1234;arst#1234` will ony apply to those users while the reply block with `u!>user#1234` will not apply to that user. The user allow/disallow line should always be the second line of each trigger block, otherwise it will not be recognised. It doesn***REMOVED***t make sense to have both a disallow and an allow line, but if there is, the disallow line will take precedence. Having no allow/disallow line will have the triggers apply to all users.
 
 **Send Rather Than Reply Flag**
 
