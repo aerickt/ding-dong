@@ -63,4 +63,4 @@ If you***REMOVED***re on Linux (running on a Raspberry Pi, for example), you can
 
 Then afterwards, just run start.sh and you***REMOVED***re good. This should also work on Mac, but I haven***REMOVED***t tested it so no guarantees.
 
-If you***REMOVED***re on Windows, then simply just edit index-nokey.js and add `var ddhome = ***REMOVED***/path/to/ding-dong***REMOVED***` right at the top, and also add the client log in line right at the bottom.
+If you***REMOVED***re on Windows, then simply just edit index-nokey.js and add `var ddhome = ***REMOVED***/path/to/ding-dong***REMOVED***` right at the top, and also add the client log in line right at the bottom. It***REMOVED***s recommended that you not save these changes to index-nokey.js, but rather save to a new file called index.js so that when you don***REMOVED***t run into conflicts when you pull changes.
