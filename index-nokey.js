@@ -193,7 +193,7 @@ client.on(***REMOVED***message***REMOVED***, message => {
 
     if (message.reference !== null && newMessage === "$altme") {
         message.channel.messages.fetch(message.reference.messageID)
-            .then(message => if (!message.author.bot) message.reply(alternateCase(message.content)))
+            .then(message => if (!message.author.bot) {message.reply(alternateCase(message.content))})
             .catch(console.error);
 
         return;
