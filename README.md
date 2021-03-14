@@ -7,13 +7,13 @@ This is my first time coding in node, so I***REMOVED***m sure there are several 
 
 Also, because I don***REMOVED***t code very often, I get the feeling that this is one giant bodge.
 
-All triggers use regexes. Any phrases or words without any regexes characters or rules surrounding them is just a regular string that the bot will try and match. A new line indicates a separation of a different reply block. The first line of every block are the responses that the bot will cycle through with the triggers and conditions below it.
+All triggers are found in triggers.txt and use regexes. Though, any phrases or words without any regexes characters or rules surrounding them is just a regular string that the bot will try and match. A new line just indicates a separation of a different reply block and the first line of every block are the responses that the bot will cycle through with the triggers and conditions below it.
 
 The minimum number of responses for each block is 1 and there is no maximum.
 
 **Every response line must end with a semicolon. Every trigger must be lower case.**
 
-The bot automatically converts every message to lower case and ignores apostrophes before comparing with the triggers. The bot does this by removing everything that is under the first response block (with the response of "NoTrigger") from the message before comparing the message.
+The bot automatically converts every message to lower case and ignores apostrophes before comparing with the triggers. It does this by removing everything that is under the first response block (with the response of "NoTrigger") from the message before comparing the message.
 
     NoTrigger
     ***REMOVED***
