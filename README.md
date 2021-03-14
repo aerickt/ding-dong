@@ -37,7 +37,6 @@ The reply block with `u>asdf#1234;arst#1234` will ony apply to those users while
 
 The bottom reply block has variables in the triggers and responses. The `#un` tag will be the user***REMOVED***s username, while the `#u` tag will ping the user. The tags with a # followed by a number act like variables the way they are in the response block. You can alter the regex to have the variable only match a certain pattern, but that can get really complicated, so the example only shows a basic wild card that will match anything.
 
-The bottom reply block also has a flag on the bottom trigger to only reply when there are 5 messages with the trigger. The bot doesn***REMOVED***t care who the user is and doesn***REMOVED***t keep track of it, so it will reply after 5 triggers regardless of who sent those 5 triggers.
+The bottom reply block also has a flag on the bottom trigger to only reply when there are 5 messages containing the trigger from the same person.
 
 Any regex string should work. Have a look at https://regex101.com/ or consult Google for more information on regexes.
-
