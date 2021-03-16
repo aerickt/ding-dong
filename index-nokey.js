@@ -103,7 +103,7 @@ async function replyFromArray(i, a, msg, user, replyType, variables) {
 
         if (response != "NoTrigger" && !userReject[i].includes(user)){
 
-            while (response.match(***REMOVED***%%***REMOVED***)) {
+            while (response.includes(***REMOVED***%%***REMOVED***)) {
                 response = response.replace(***REMOVED***%%***REMOVED***, "\n");
             }
 
