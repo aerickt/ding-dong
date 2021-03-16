@@ -6,13 +6,16 @@ var raw = fs.readFileSync(ddhome+"/triggers.txt", "utf-8").split("\n");
 
 var arrayIndex = 0;
 var beginElement = 0;
-var responseNum = 0;
+var replyCounter = 0;
 
 var triggers = new Array;
 var replies = new Array;
 
 var userAllow = new Array;
 var userReject = new Array;
+
+var triggerType = new Array;
+var replyType = new Array
 
 var triggerCount = new Array;
 var triggerThresh = new Array;
@@ -60,6 +63,8 @@ for (const i in triggers) {
     triggerThresh[i] = [];
     triggerCount[i] = [];
 
+    triggerType[i] = [];
+
     for (const a in triggers[i]) {
 
         triggerThresh[i][a] = 1;
@@ -69,6 +74,13 @@ for (const i in triggers) {
             var tempArray = triggers[i][a].split("n>");
             triggers[i][a] = tempArray[1];
             triggerThresh[i][a] = Number(tempArray[0]);
+        }
+
+        triggerType[i][a] = "reply";
+
+        if (triggers[i][a].includes("sm>")) {
+            triggers[i][a] = triggers[i][a].replace("sm>", "");
+            triggerType[i][a] = "send";
         }
 
     }
@@ -82,7 +94,24 @@ for (const i in replies) {
     }
 
     replies[i].pop();
+
+    replyType[i] = [];
+
+    for (const a in replies[i]) {
+
+        replyType[i][a] = "reply";
+
+        if (replies[i][a].includes("sm>")) {
+            replies[i][a] = replies[i][a].replace("sm>", "");
+            replyType[i][a] = "send";
+        }
+
+    }
+
 }
+
+console.log(replyType);
+console.log(triggerType);
 
 var alternateCase = function (s) {
     var chars = s.toLowerCase().split("");
@@ -94,9 +123,10 @@ var alternateCase = function (s) {
     return chars.join("");
 };
 
-async function replyFromArray(i, a, msg, user, replyType, variables) {
+async function replyFromArray(i, a, msg, user, variables) {
 
-    var response = replies[i][responseNum % replies[i].length];
+    var replyIndex = replyCounter % replies[i].length;
+    var response = replies[i][replyIndex];
     let msgReply = null;
 
     if (userAllow[i] === "some"  || userAllow[i] === "all" || userAllow[i].includes(user)) {
@@ -165,14 +195,7 @@ async function replyFromArray(i, a, msg, user, replyType, variables) {
 
             if (msgReply === "") return;
 
-            if (response.includes("sm>") || replyType === "send") {
-
-                if (typeof msgReply === ***REMOVED***string***REMOVED***) {
-                    msgReply = msgReply.replace("sm>","");
-                }
-
-                msg.channel.send(msgReply);
-            }
+            if (replyType[i][replyIndex] === "send" || triggerType[i][a] === "send") msg.channel.send(msgReply);
 
             else msg.reply(msgReply);
 
@@ -183,7 +206,8 @@ async function replyFromArray(i, a, msg, user, replyType, variables) {
     }
 
     else userMatch = false;
-    responseNum++;
+
+    replyCounter++;
 }
 
 function countTrigger(i, a, user) {
@@ -207,7 +231,6 @@ client.on(***REMOVED***message***REMOVED***, async msg => {
 
     if (msg.author.bot) return;
 
-    var replyType = "reply";
     var newMessage = msg.content.toLowerCase();
     var user = msg.author.username+"#"+msg.author.discriminator;
 
@@ -229,11 +252,6 @@ client.on(***REMOVED***message***REMOVED***, async msg => {
         for (const a in triggers[i]) {
             var regex = triggers[i][a]
 
-            if (triggers[i][a].includes("sm>")) {
-                regex = triggers[i][a].replace("sm>", "");
-                replyType = "send";
-            }
-
             if (!triggers[i][a].includes("#")) {
                 regex = new RegExp(regex);
 
@@ -242,7 +260,7 @@ client.on(***REMOVED***message***REMOVED***, async msg => {
                     countTrigger(i, a, user);
 
                     if (tempTriggerCount % triggerThresh[i][a] === 0) {
-                        replyFromArray(i, a, msg, user, replyType);
+                        replyFromArray(i, a, msg, user);
                     }
 
                     if (userMatch === true) return;
@@ -286,14 +304,12 @@ client.on(***REMOVED***message***REMOVED***, async msg => {
                     countTrigger(i, a, user);
 
                     if (tempTriggerCount % triggerThresh[i][a] === 0) {
-                        replyFromArray(i, a, msg, user, replyType, variables);
+                        replyFromArray(i, a, msg, user, variables);
                     }
 
                 }
 
             }
-
-            replyType = "reply";
 
         }
 
