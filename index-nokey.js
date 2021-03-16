@@ -94,10 +94,10 @@ var alternateCase = function (s) {
     return chars.join("");
 };
 
-function replyFromArray(i, msg, user, replyType, variables) {
+async function replyFromArray(i, a, msg, user, replyType, variables) {
 
     var response = replies[i][responseNum % replies[i].length];
-    var msgReply;
+    let msgReply = null;
 
     if (userAllow[i] === "some"  || userAllow[i] === "all" || userAllow[i].includes(user)) {
 
@@ -109,16 +109,22 @@ function replyFromArray(i, msg, user, replyType, variables) {
 
             if (response.includes("alternate")) {
 
-                if (msg.reference === null) {
-                    msgReply = alternateCase(msg.content.replace("$altme", ""));
+                if (replies[i].length === 1) {
+
+                    if (msg.reference === null) {
+                        console.log(triggers[i][a]);
+                        msgReply = alternateCase(msg.content.replace(triggers[i][a], ""));
+                    }
+
+                    else if (msg.reference !== null && replies[i].length === 1) {
+                        var refMsg = await msg.channel.messages.fetch(msg.reference.messageID);
+                        if (!refMsg.author.bot) msgReply = alternateCase(refMsg.content);
+                    }
+
                 }
 
                 else {
-                    msg.channel.messages.fetch(msg.reference.messageID)
-                        .then(refMsg => {
-                            if (!refMsg.author.bot) msgReply = (alternateCase(refMsg.content));
-                            console.log(msgReply);
-                        });
+                    msgReply = alternateCase(msg.content);
                 }
 
             }
@@ -156,6 +162,8 @@ function replyFromArray(i, msg, user, replyType, variables) {
             }
 
             else msgReply = response;
+
+            if (msgReply === "") return;
 
             if (response.includes("sm>") || replyType === "send") {
 
@@ -195,7 +203,7 @@ function countTrigger(i, a, user) {
 
 }
 
-client.on(***REMOVED***message***REMOVED***, msg => {
+client.on(***REMOVED***message***REMOVED***, async msg => {
 
     if (msg.author.bot) return;
 
@@ -234,7 +242,7 @@ client.on(***REMOVED***message***REMOVED***, msg => {
                     countTrigger(i, a, user);
 
                     if (tempTriggerCount % triggerThresh[i][a] === 0) {
-                        replyFromArray(i, msg, user, replyType);
+                        replyFromArray(i, a, msg, user, replyType);
                     }
 
                     if (userMatch === true) return;
@@ -278,7 +286,7 @@ client.on(***REMOVED***message***REMOVED***, msg => {
                     countTrigger(i, a, user);
 
                     if (tempTriggerCount % triggerThresh[i][a] === 0) {
-                        replyFromArray(i, msg, user, replyType, variables);
+                        replyFromArray(i, a, msg, user, replyType, variables);
                     }
 
                 }
