@@ -3,10 +3,7 @@ my disappointment is immeasurable
 (\$)(?!altme)([a-zA-Z]*)
 (that|which) is strong
 :nezudisappoint:
-the camera
 is taller
-moisture
-gaga
 '
 ’
 ‘
@@ -22,13 +19,6 @@ i((?!dont|do not).)* hate it here
 
 Yeah Right;Wimp;No You're Not;Grow a Pair;alternate;
 being bullied
-
-No;Nope;Not a Chance;Definitely Not;I Disagree;
-i(ve| have|) a life
-
-Ding Dong Look Who's Talking;
-shit filled
-(she|he|they)(s|re| is| are) full of shit
 
 Yes It Is;
 thats not true
@@ -47,9 +37,6 @@ trust me
 <sm>you are wrong;
 ^ding dong$
 
-<sm>Ding Dong That Sounds Wrong;
-^<@!757391100267724821>$
-
 <sm>No, It's An Invitation!;
 is that a threat
 
@@ -65,12 +52,6 @@ thats what i was thinking
 No You're Not;<sm>Uh Huh; Wrong;
 <sm>im right
 im correct
-
-Hehe Funny Sex Number;
-^69$
-
-Haha W33D;
-^420$
 
 But You Can Call Me Gay;
 my name is gus a(.|) yarbough
