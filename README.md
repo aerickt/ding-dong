@@ -64,10 +64,10 @@ I've also provided a sample of a trigger file which is mainly clean and free of 
 
 **Running Instructions**
 
-If you're on Linux (running on a Raspberry Pi, for example), you can easily just create a file called "priv.txt" with the line for your Discord token login. It should look something like the following:
+If you're on Linux (running on a Raspberry Pi, for example), clone the repo to your user's home directory (`~/`) and then create a file called "priv.txt" with the line for your Discord token login. It should look something like the following:
 
     client.login("your-private-token-goes-here");
 
-Then afterwards, just run start.sh and you're good. This should also work on Mac, but I haven't tested it so no guarantees.
+Just run start.sh and you're good. This should also work on Mac, but I haven't tested it so no guarantees.
 
 If you're on Windows, then simply just edit index-nokey.js and add `var ddhome = '/path/to/ding-dong'` right at the top, and also add the client log in line right at the bottom. It's recommended that you not save these changes to index-nokey.js, but rather save to a new file called index.js so that you don't run into conflicts if you pull new changes.
