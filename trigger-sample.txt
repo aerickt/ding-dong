@@ -1,0 +1,134 @@
+NoTrigger;
+my disappointment is immeasurable
+(\$)(?!altme)([a-zA-Z]*)
+(that|which) is strong
+:nezudisappoint:
+the camera
+is taller
+moisture
+gaga
+'
+’
+‘
+
+<sm>alternate;
+\$altme
+
+<sm>triggerlist;
+^dd>trigger(s|)list$
+
+Get Used To It;Haha suffer;Grow a Pair;
+i((?!dont|do not).)* hate it here
+
+Yeah Right;Wimp;No You're Not;Grow a Pair;alternate;
+being bullied
+
+No;Nope;Not a Chance;Definitely Not;I Disagree;
+i(ve| have|) a life
+
+Ding Dong Look Who's Talking;
+shit filled
+(she|he|they)(s|re| is| are) full of shit
+
+Yes It Is;
+thats not true
+no its not
+no it isnt
+
+No It's Not;
+yes it is
+
+I Won't;I never have;
+dont trust me
+
+No;How About No;No One Can Trust You;
+trust me
+
+<sm>you are wrong;
+^ding dong$
+
+<sm>Ding Dong That Sounds Wrong;
+^<@!757391100267724821>$
+
+<sm>No, It's An Invitation!;
+is that a threat
+
+<sm>No, It's a Threat!;
+is that an invitation
+
+No You Didn't;You Could Think?;Yeah Right;
+thats what i thought
+
+No You Weren't;Yeah Right;
+thats what i was thinking
+
+No You're Not;<sm>Uh Huh; Wrong;
+<sm>im right
+im correct
+
+Hehe Funny Sex Number;
+^69$
+
+Haha W33D;
+^420$
+
+But You Can Call Me Gay;
+my name is gus a(.|) yarbough
+
+Oh they will;
+(takes|reads|sees) this(.*) out of context
+
+You better :knife:;Who doesn't;Of course you should :knife:;Everyone likes Ding Dong;
+i like (ding(| )dong)
+
+You Are Wrong;That's Where You're Wrong;Wrong;no;Ding Dong That's Incorrect;Yeah Right;alternate;
+(im|am|is) (not short|tall|smart|not a simp)
+this server is(| very) questionable
+hockey is better than soccer
+(im|am|is) (strong|smart)
+(is|im|am) not into that
+(im|am) a climbing god
+lily is (dumb|stupid)
+my code is perfect
+my parents love me
+(im|am) big brain
+(im|am|is) 6ft
+qwerty is good
+^i am loved$
+^i exist$
+
+Absolutely Right, Have a Nice Day;You Got That Correct;That is 100% Correct;I Concur;I Agree;
+(ding(| )dong)(.*) is (smart|(always |)(right|correct)|amazing|awesome|great|the best|my favourite)
+(ding(| )dong)(.*) is ((our |a |)god|(our |)supreme leader)
+never question (ding dong|ding dong bot|dingdongbot|dingdong bot)
+(ding(| )dong)(.*) is the (greatest|best)
+(im|am)((?!not|you).)*(dumb|stupid|an idiot)
+
+Ding Dong Get a Life;
+my code isnt finished yet
+spam(.*)spam(.*)
+play minecraft
+(im|am) bored
+time to spam
+((?!people|who).)* watch anime
+spam time
+<spam>
+
+That's Right :knife:;Of Course :knife:;
+(nobody|no body|no one) should be able to escape (ding(| )dong|<@!757391100267724821>)
+(nobody|no body|no one) can escape (ding(| )dong|<@!757391100267724821>)
+
+No Problem!;You're Welcome!;Don't Mention It!;
+(thank|thx)(.*) (ding(| )dong|<@!757391100267724821>)(.*)
+(ding(| )dong|<@!757391100267724821>)(.*) (thank|thx)(.*)
+
+<sm>*hehe #1 go brrrrrrrr*;
+i (hate|dont like|dislike)( the| that|) ((?:(?!\bthis|lmao|doing|so much|the|you|we|it\b).)+)$#1
+im (gonna|going to) fail ((?:(?!\btest\b).)+)$#1
+imagine doing (.*)#1
+
+Have a good day; Have a nice day;
+<sm>^understandable$
+
+Test Response;
+<sm><5>trigger number dependent test

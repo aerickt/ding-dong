@@ -1,4 +1,4 @@
-const Discord = require(***REMOVED***discord.js***REMOVED***);
+const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var fs = require("fs");
@@ -90,8 +90,8 @@ for (const i in triggers) {
 
 for (const i in replies) {
 
-    if (replies[i].includes(***REMOVED***;***REMOVED***)) {
-        replies[i] = replies[i].split(***REMOVED***;***REMOVED***);
+    if (replies[i].includes(';')) {
+        replies[i] = replies[i].split(';');
     }
 
     replies[i].pop();
@@ -131,8 +131,8 @@ async function replyFromArray(i, a, msg, user, variables) {
 
         if (response != "NoTrigger" && !userReject[i].includes(user)){
 
-            while (response.includes(***REMOVED***%%***REMOVED***)) {
-                response = response.replace(***REMOVED***%%***REMOVED***, "\n");
+            while (response.includes('%%')) {
+                response = response.replace('%%', "\n");
             }
 
             if (response.includes("alternate")) {
@@ -211,7 +211,7 @@ async function replyFromArray(i, a, msg, user, variables) {
 function countTrigger(i, a, user) {
     if (triggerCount[i][a].includes(user)) {
         var tempArray = triggerCount[i][a].split(user+":");
-        var tempCount = Number(tempArray[1].split(***REMOVED***;***REMOVED***)[0]);
+        var tempCount = Number(tempArray[1].split(';')[0]);
         var oldCount = user+":"+String(tempCount)+";";
         tempCount++;
         var newCount = user+":"+String(tempCount)+";";
@@ -225,14 +225,14 @@ function countTrigger(i, a, user) {
 
 }
 
-client.on(***REMOVED***message***REMOVED***, async msg => {
+client.on('message', async msg => {
 
     if (msg.author.bot) return;
 
     var newMessage = msg.content.toLowerCase();
     var user = msg.author.username+"#"+msg.author.discriminator;
 
-    fs.appendFileSync(ddhome+***REMOVED***/log.txt***REMOVED***, newMessage+"\n");
+    fs.appendFileSync(ddhome+'/log.txt', newMessage+"\n");
 
     for (const i in triggers[0]) {
         var noTrigger = new RegExp(triggers[0][i]);
@@ -273,11 +273,11 @@ client.on(***REMOVED***message***REMOVED***, async msg => {
                 for (var b = 0; b < variableCount; b++) {
 
                     if (b > 0) {
-                        variablePosition[b] = (new RegExp(triggers[i][a].split("#")[b].toString() + ***REMOVED***|***REMOVED***)).exec(***REMOVED******REMOVED***).length - 1 + variablePosition[b-1];
+                        variablePosition[b] = (new RegExp(triggers[i][a].split("#")[b].toString() + '|')).exec('').length - 1 + variablePosition[b-1];
                     }
 
                     else {
-                        variablePosition[b] = (new RegExp(triggers[i][a].split("#")[b].toString() + ***REMOVED***|***REMOVED***)).exec(***REMOVED******REMOVED***).length - 1;
+                        variablePosition[b] = (new RegExp(triggers[i][a].split("#")[b].toString() + '|')).exec('').length - 1;
                     }
 
                     placeHolder = "#" + (b + 1).toString();
@@ -293,7 +293,7 @@ client.on(***REMOVED***message***REMOVED***, async msg => {
                         variables[b] = newMessage.match(regex)[variablePosition[b]];
 
                         while (variables[b].includes("my")) {
-                            variables[b] = variables[b].replace("my","#un***REMOVED***s");
+                            variables[b] = variables[b].replace("my","#un's");
                         }
 
                         if (!variables[b] || variables[b] === " ") return;
