@@ -108,7 +108,19 @@ function replyFromArray(i, msg, user, replyType, variables) {
             }
 
             if (response.includes("alternate")) {
-                msgReply = alternateCase(msg.content.replace("$altme", ""));
+
+                if (msg.reference === null) {
+                    msgReply = alternateCase(msg.content.replace("$altme", ""));
+                }
+
+                else {
+                    msg.channel.messages.fetch(msg.reference.messageID)
+                        .then(refMsg => {
+                            if (!refMsg.author.bot) msgReply = (alternateCase(refMsg.content));
+                            console.log(msgReply);
+                        });
+                }
+
             }
 
             else if (response.includes("triggerlist")) {
@@ -190,18 +202,6 @@ client.on(***REMOVED***message***REMOVED***, msg => {
     var replyType = "reply";
     var newMessage = msg.content.toLowerCase();
     var user = msg.author.username+"#"+msg.author.discriminator;
-
-    if (msg.reference !== null && newMessage === "$altme") {
-        msg.channel.messages.fetch(msg.reference.messageID)
-            .then(refMsg => {
-
-                if (!refMsg.author.bot) refMsg.reply(alternateCase(refMsg.content));
-
-            });
-
-        return;
-
-    }
 
     fs.appendFileSync(ddhome+***REMOVED***/log.txt***REMOVED***, newMessage+"\n");
 
