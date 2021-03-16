@@ -32,8 +32,7 @@ for (const i in raw) {
     if (raw[i] === "") {
         triggers[arrayIndex] = raw.slice(beginElement,i);
         arrayIndex++;
-        beginElement = i;
-        beginElement++;
+        beginElement = Number(i) + 1;
     }
 
 }
@@ -70,16 +69,18 @@ for (const i in triggers) {
         triggerThresh[i][a] = 1;
         triggerCount[i][a] = "";
 
-        if (triggers[i][a].includes("n>")) {
-            var tempArray = triggers[i][a].split("n>");
-            triggers[i][a] = tempArray[1];
-            triggerThresh[i][a] = Number(tempArray[0]);
+        const re = /<(\d*)>/;
+
+        if (triggers[i][a].match(re)) {
+            triggerThresh[i][a] = Number(triggers[i][a].match(re)[1]);
+            triggers[i][a] = triggers[i][a].replace(re, "");
+            
         }
 
         triggerType[i][a] = "reply";
 
-        if (triggers[i][a].includes("sm>")) {
-            triggers[i][a] = triggers[i][a].replace("sm>", "");
+        if (triggers[i][a].includes("<sm>")) {
+            triggers[i][a] = triggers[i][a].replace("<sm>", "");
             triggerType[i][a] = "send";
         }
 
@@ -101,17 +102,14 @@ for (const i in replies) {
 
         replyType[i][a] = "reply";
 
-        if (replies[i][a].includes("sm>")) {
-            replies[i][a] = replies[i][a].replace("sm>", "");
+        if (replies[i][a].includes("<sm>")) {
+            replies[i][a] = replies[i][a].replace("<sm>", "");
             replyType[i][a] = "send";
         }
 
     }
 
 }
-
-console.log(replyType);
-console.log(triggerType);
 
 var alternateCase = function (s) {
     var chars = s.toLowerCase().split("");
