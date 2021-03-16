@@ -68,7 +68,7 @@ for (const i in triggers) {
         if (triggers[i][a].includes("n>")) {
             var tempArray = triggers[i][a].split("n>");
             triggers[i][a] = tempArray[1];
-            triggerThresh[i][a] = Number(tempArray [0]);
+            triggerThresh[i][a] = Number(tempArray[0]);
         }
 
     }
