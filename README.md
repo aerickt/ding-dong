@@ -49,7 +49,7 @@ The reply block with `u>asdf#1234;arst#1234` will ony apply to those users while
 
 The bottom reply block has variables in the triggers and responses. The `#un` tag will be the user***REMOVED***s username, while the `#u` tag will ping the user. The tags with a # followed by a number act like variables the way they are in the response block. You can alter the regex to have the variable only match a certain pattern, but that can get really complicated, so the example only shows a basic wild card that will match anything.
 
-The bottom reply block also has a flag on the bottom trigger to only reply when there are 5 messages containing the trigger from the same person.
+The bottom reply block also has a flag on the bottom trigger to only reply when there are 5 messages containing the trigger from the same person. If using a response threshold flag as well as a send message tag, the send message tag has to be last. So for example, `3n>sm>trigger` would be correct, while `sm>3n>trigger` would not. I***REMOVED***m thinking of somehow simplifying the flags and the user white list/blacklist stuff at some point, but for now, you must adhere to this format.
 
 Any regex string should work. Have a look at https://regex101.com/ or consult Google for more information on regexes.
 
