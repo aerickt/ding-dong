@@ -1,3 +1,5 @@
+const start = Date.now();
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -8,17 +10,17 @@ var arrayIndex = 0;
 var beginElement = 0;
 var replyCounter = 0;
 
-var triggers = new Array;
+var trigs = new Array;
 var replies = new Array;
 
 var userAllow = new Array;
 var userReject = new Array;
 
-var triggerType = new Array;
+var trigType = new Array;
 var replyType = new Array
 
-var triggerCount = new Array;
-var triggerThresh = new Array;
+var trigCount = new Array;
+var trigThresh = new Array;
 
 var variables = new Array;
 var variablePosition = new Array;
@@ -30,58 +32,58 @@ var tempTriggerCount = 1;
 for (const i in raw) {
 
     if (raw[i] === "") {
-        triggers[arrayIndex] = raw.slice(beginElement,i);
+        trigs[arrayIndex] = raw.slice(beginElement,i);
         arrayIndex++;
         beginElement = Number(i) + 1;
     }
 
 }
 
-for (const i in triggers) {
+for (const i in trigs) {
 
-    replies[i] = triggers[i][0];
-    triggers[i].shift();
+    replies[i] = trigs[i][0];
+    trigs[i].shift();
 
-    if (!triggers[i][0].match(/u(!|)>/)) {
+    if (!trigs[i][0].match(/u(!|)>/)) {
         userAllow[i] = "all";
     }
 
-    else if (triggers[i][0].includes("u>")) {
-        userAllow[i] = triggers[i][0].replace("u>", "");
-        triggers[i].shift();
+    else if (trigs[i][0].includes("u>")) {
+        userAllow[i] = trigs[i][0].replace("u>", "");
+        trigs[i].shift();
     }
 
-    if (triggers[i][0].includes("u!>")) {
+    if (trigs[i][0].includes("u!>")) {
         userAllow[i] = "some";
-        userReject[i] = triggers[i][0].replace("u!>", "");
-        triggers[i].shift();
+        userReject[i] = trigs[i][0].replace("u!>", "");
+        trigs[i].shift();
     }
 
     else userReject[i] = "no";
 
-    triggerThresh[i] = [];
-    triggerCount[i] = [];
+    trigThresh[i] = [];
+    trigCount[i] = [];
 
-    triggerType[i] = [];
+    trigType[i] = [];
 
-    for (const a in triggers[i]) {
+    for (const a in trigs[i]) {
 
-        triggerThresh[i][a] = 1;
-        triggerCount[i][a] = "";
+        trigThresh[i][a] = 1;
+        trigCount[i][a] = "";
 
         const re = /<(\d*)>/;
 
-        if (triggers[i][a].match(re)) {
-            triggerThresh[i][a] = Number(triggers[i][a].match(re)[1]);
-            triggers[i][a] = triggers[i][a].replace(re, "");
+        if (trigs[i][a].match(re)) {
+            trigThresh[i][a] = Number(trigs[i][a].match(re)[1]);
+            trigs[i][a] = trigs[i][a].replace(re, "");
             
         }
 
-        triggerType[i][a] = "reply";
+        trigType[i][a] = "reply";
 
-        if (triggers[i][a].includes("<sm>")) {
-            triggers[i][a] = triggers[i][a].replace("<sm>", "");
-            triggerType[i][a] = "send";
+        if (trigs[i][a].includes("<sm>")) {
+            trigs[i][a] = trigs[i][a].replace("<sm>", "");
+            trigType[i][a] = "send";
         }
 
     }
@@ -140,8 +142,8 @@ async function replyFromArray(i, a, msg, user, variables) {
                 if (replies[i].length === 1) {
 
                     if (msg.reference === null) {
-                        console.log(triggers[i][a]);
-                        msgReply = alternateCase(msg.content.replace(triggers[i][a], ""));
+                        console.log(trigs[i][a]);
+                        msgReply = alternateCase(msg.content.replace(trigs[i][a], ""));
                     }
 
                     else if (msg.reference !== null && replies[i].length === 1) {
@@ -159,6 +161,10 @@ async function replyFromArray(i, a, msg, user, variables) {
 
             else if (response.includes("triggerlist")) {
                 msgReply = { files: [ddhome+"/triggers.txt"] };
+            }
+
+            else if (response.includes("triggercount")) {
+                msgReply = totalTrig + " triggers and " + totalReply + " replies.";
             }
 
             else if (response.includes("#")) {
@@ -193,7 +199,7 @@ async function replyFromArray(i, a, msg, user, variables) {
 
             if (msgReply === "") return;
 
-            if (replyType[i][replyIndex] === "send" || triggerType[i][a] === "send") msg.channel.send(msgReply);
+            if (replyType[i][replyIndex] === "send" || trigType[i][a] === "send") msg.channel.send(msgReply);
 
             else msg.reply(msgReply);
 
@@ -209,21 +215,29 @@ async function replyFromArray(i, a, msg, user, variables) {
 }
 
 function countTrigger(i, a, user) {
-    if (triggerCount[i][a].includes(user)) {
-        var tempArray = triggerCount[i][a].split(user+":");
+
+    if (trigCount[i][a].includes(user)) {
+        var tempArray = trigCount[i][a].split(user+":");
         var tempCount = Number(tempArray[1].split(';')[0]);
         var oldCount = user+":"+String(tempCount)+";";
         tempCount++;
         var newCount = user+":"+String(tempCount)+";";
-        triggerCount[i][a] = triggerCount[i][a].replace(oldCount, newCount);
+        trigCount[i][a] = trigCount[i][a].replace(oldCount, newCount);
         tempTriggerCount = tempCount;
     }
 
     else {
-        triggerCount[i][a] = triggerCount[i][a].concat(user+":1;");
+        trigCount[i][a] = trigCount[i][a].concat(user+":1;");
     }
 
 }
+
+var totalTrig = String(trigs.reduce((count, row) => count + row.length, 0));
+var totalReply = String(replies.reduce((count, row) => count + row.length, 0));
+
+var loadTime = Date.now() - start;
+
+console.log("Loaded " + totalTrig + " triggers and " + totalReply + " replies in " + loadTime + " ms.");
 
 client.on('message', async msg => {
 
@@ -234,8 +248,8 @@ client.on('message', async msg => {
 
     fs.appendFileSync(ddhome+'/log.txt', newMessage+"\n");
 
-    for (const i in triggers[0]) {
-        var noTrigger = new RegExp(triggers[0][i]);
+    for (const i in trigs[0]) {
+        var noTrigger = new RegExp(trigs[0][i]);
 
         while (newMessage.match(noTrigger)) {
             newMessage = newMessage.replace(noTrigger, "");
@@ -245,19 +259,19 @@ client.on('message', async msg => {
 
     console.log(newMessage);
 
-    for (const i in triggers) {
+    for (const i in trigs) {
 
-        for (const a in triggers[i]) {
-            var regex = triggers[i][a]
+        for (const a in trigs[i]) {
+            var regex = trigs[i][a]
 
-            if (!triggers[i][a].includes("#")) {
+            if (!trigs[i][a].includes("#")) {
                 regex = new RegExp(regex);
 
                 if (newMessage.match(regex)) {
 
                     countTrigger(i, a, user);
 
-                    if (tempTriggerCount % triggerThresh[i][a] === 0) {
+                    if (tempTriggerCount % trigThresh[i][a] === 0) {
                         replyFromArray(i, a, msg, user);
                     }
 
@@ -268,16 +282,16 @@ client.on('message', async msg => {
             }
 
             else {
-                var variableCount = (triggers[i][a].match(/#/g) || []).length;
+                var variableCount = (trigs[i][a].match(/#/g) || []).length;
 
                 for (var b = 0; b < variableCount; b++) {
 
                     if (b > 0) {
-                        variablePosition[b] = (new RegExp(triggers[i][a].split("#")[b].toString() + '|')).exec('').length - 1 + variablePosition[b-1];
+                        variablePosition[b] = (new RegExp(trigs[i][a].split("#")[b].toString() + '|')).exec('').length - 1 + variablePosition[b-1];
                     }
 
                     else {
-                        variablePosition[b] = (new RegExp(triggers[i][a].split("#")[b].toString() + '|')).exec('').length - 1;
+                        variablePosition[b] = (new RegExp(trigs[i][a].split("#")[b].toString() + '|')).exec('').length - 1;
                     }
 
                     placeHolder = "#" + (b + 1).toString();
@@ -301,7 +315,7 @@ client.on('message', async msg => {
 
                     countTrigger(i, a, user);
 
-                    if (tempTriggerCount % triggerThresh[i][a] === 0) {
+                    if (tempTriggerCount % trigThresh[i][a] === 0) {
                         replyFromArray(i, a, msg, user, variables);
                     }
 
