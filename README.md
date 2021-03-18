@@ -64,6 +64,8 @@ I've also provided a sample of a trigger file which is mainly clean and free of 
 
 **Running Instructions**
 
+First install dicord.js: `npm install discord.js`.
+
 If you're on Linux (running on a Raspberry Pi, for example), clone the repo to your user's home directory (`~/`) and then create a file called "priv.txt" with the line for your Discord token login. It should look something like the following:
 
     client.login("your-private-token-goes-here");
