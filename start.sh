@@ -1,5 +1,5 @@
 #!/bin/bash
-ddhome="$HOME/ding-dong"
+ddhome=$(pwd)
 path="var ddhome = '$ddhome';"
 
 echo "$path" > "$ddhome/index.js"
