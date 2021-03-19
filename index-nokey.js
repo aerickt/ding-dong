@@ -21,13 +21,12 @@ var replyType = new Array
 
 var trigCount = new Array;
 var trigThresh = new Array;
+var tempCount;
 
 var variables = new Array;
 var variablePosition = new Array;
 
 var userMatch;
-
-var tempTriggerCount = 1;
 
 for (const i in raw) {
 
@@ -71,12 +70,9 @@ for (const i in trigs) {
         trigThresh[i][a] = 1;
         trigCount[i][a] = "";
 
-        const re = /<(\d*)>/;
-
-        if (trigs[i][a].match(re)) {
-            trigThresh[i][a] = Number(trigs[i][a].match(re)[1]);
-            trigs[i][a] = trigs[i][a].replace(re, "");
-            
+        if (trigs[i][a].match(/<(\d*)>/)) {
+            trigThresh[i][a] = Number(trigs[i][a].match(/<(\d*)>/)[1]);
+            trigs[i][a] = trigs[i][a].replace(/<(\d*)>/, "");
         }
 
         trigType[i][a] = "reply";
@@ -217,18 +213,15 @@ async function replyFromArray(i, a, msg, user, variables) {
 function countTrigger(i, a, user) {
 
     if (trigCount[i][a].includes(user)) {
-        var tempArray = trigCount[i][a].split(user+":");
-        var tempCount = Number(tempArray[1].split(';')[0]);
-        var oldCount = user+":"+String(tempCount)+";";
+        const re = new RegExp(user+":"+"(\\d*)\;");
+        tempCount = Number(trigCount[i][a].match(re)[1]);
+        trigCount[i][a] = trigCount[i][a].replace(re, "");
         tempCount++;
-        var newCount = user+":"+String(tempCount)+";";
-        trigCount[i][a] = trigCount[i][a].replace(oldCount, newCount);
-        tempTriggerCount = tempCount;
     }
 
-    else {
-        trigCount[i][a] = trigCount[i][a].concat(user+":1;");
-    }
+    else tempCount = 1;
+
+    trigCount[i][a] = trigCount[i][a].concat(user+":"+tempCount+";");
 
 }
 
@@ -271,7 +264,7 @@ client.on('message', async msg => {
 
                     countTrigger(i, a, user);
 
-                    if (tempTriggerCount % trigThresh[i][a] === 0) {
+                    if (tempCount % trigThresh[i][a] === 0) {
                         replyFromArray(i, a, msg, user);
                     }
 
@@ -315,7 +308,7 @@ client.on('message', async msg => {
 
                     countTrigger(i, a, user);
 
-                    if (tempTriggerCount % trigThresh[i][a] === 0) {
+                    if (tempCount % trigThresh[i][a] === 0) {
                         replyFromArray(i, a, msg, user, variables);
                     }
 
