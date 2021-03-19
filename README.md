@@ -29,7 +29,7 @@ The bot automatically converts every message to lower case and ignores apostroph
     <sm>i like (apples|oranges|dragonfruit)
     i am (our |a |)(god|supreme leader)
     
-    New Set of Triggers;sm>alternate;Response number two with spaces;
+    New Set of Triggers;sm>alternate;Response number two with spaces;This%%reply%%will%%be%%split%%into%%newlines;
     u>asdf#1234;arst#1234
     (im|i am) short
     
@@ -41,6 +41,10 @@ You can repeat responses, however you cannot repeat triggers in different blocks
 **Mocking Sarcastic Reply**
 
 `alternate` is a special resonse in which it takes the trigger, alternates the case, and replies with that aLtErNaTiNg message. In addition to this, replying to a message with the trigger `#altme` will alternate the case of the message you've replied to. It can also be used alone with other text, so `#altme some other text` will result in `sOmE OtHeR TeXt` being sent. These last two uses of the alternate response only work if it is the only reply in that block.
+
+**Replies Containing Newlines**
+
+Replies containing new lines have to be expressed in one line where each new line is replaced with `%%`. This can be done with a utility like `tr`, though I'm not sure how you'd go about doing something like that on Windows or Mac. I'm sure it's pretty simple and you can just Google something.
 
 **User Specific Triggers**
 
