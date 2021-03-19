@@ -6,27 +6,25 @@ const client = new Discord.Client();
 var fs = require("fs");
 var raw = fs.readFileSync(ddhome+"/triggers.txt", "utf-8").split("\n");
 
-var arrayIndex = 0;
-var beginElement = 0;
-var replyCounter = 0;
+var arrayIndex, beginElement, replyCounter;
+arrayIndex = beginElement = replyCounter = 0;
 
-var trigs = new Array;
-var replies = new Array;
+var trigs = [];
+var replies = [];
 
-var userAllow = new Array;
-var userReject = new Array;
+var userAllow = [];
+var userReject = [];
 
-var trigType = new Array;
-var replyType = new Array
+var trigType = [];
+var replyType = []
 
-var trigCount = new Array;
-var trigThresh = new Array;
-var tempCount;
+var trigCount = [];
+var trigThresh = [];
 
-var variables = new Array;
-var variablePosition = new Array;
+var variables = [];
+var variablePosition = [];
 
-var userMatch;
+var userMatch, tempCount;
 
 for (const i in raw) {
 
