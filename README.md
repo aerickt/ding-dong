@@ -3,17 +3,17 @@ Ding Dong You Are Wrong
 
 **A Discord Bot for Immature Teenagers to ~~Bully~~ Tease Their Friends**
 
-This is really just an auto replier bot that is fairly customisable.
+This is just an auto replier bot that  I made. It replies certain predictable responses based on certain triggers.
 
-All triggers are found in triggers.txt and use regexes. Though, any phrases or words without any regexes characters or rules surrounding them is just a regular string that the bot will try and match. A new line just indicates a separation of a different reply block. In each reply block, the first line contains the responses that the bot will cycle through while the triggers and conditions are below that first line.
+All triggers and replies are found in triggers.txt and the triggers can be used with regexes. The replies and triggers can be found in a "block" separated by new lines. The top line of each block are the replies, while the lines below it are the conditions and the triggers. There can be multiple replies and they are separated by semicolons in the reply block.
 
-The minimum number of responses for each block is 1 and there is no maximum.
+The minimum number of responses for each block is 1 and there is no maximum. The bot will simply just cycle through the different replies in increments.
 
-**Every response line must end with a semicolon. Every trigger must be lower case.**
+**Every reply line must end with a semicolon. Every trigger must be lower case.**
 
-The bot automatically converts every message to lower case and ignores apostrophes before comparing with the triggers. It does this by removing everything that is under the first response block (with the response of "NoTrigger") from the message before comparing the message.
+The bot automatically converts every message to lower case and ignores apostrophes before comparing with the triggers. It does this by removing everything that is under the first response block (with the response of "NoTrigger") from the message before comparing the message. So for example, Ding Dong will see the message "I'm interested in drinks which are strong" as just: "im interested in drinks". As such, all the triggers should be lowercase, otherwise they will not work.
 
-    NoTrigger
+    NoTrigger;
     '
     (that|which) is strong
     
@@ -24,12 +24,12 @@ The bot automatically converts every message to lower case and ignores apostroph
     i am strong
     is strong
     
-    Response one;Response number two with spaces;Response three;alternate;
+    Some Random Replies;alternate;other reply;
     u!>user#1234
     <sm>i like (apples|oranges|dragonfruit)
     i am (our |a |)(god|supreme leader)
     
-    New Set of Triggers;sm>alternate;Response number two with spaces;This%%reply%%will%%be%%split%%into%%newlines;
+    This%%reply%%will%%be%%split%%into%%newlines;
     u>asdf#1234;arst#1234
     (im|i am) short
     
@@ -44,7 +44,7 @@ You can repeat responses, however you cannot repeat triggers in different blocks
 
 **Replies Containing Newlines**
 
-Replies containing new lines have to be expressed in one line where each new line is replaced with `%%`. This can be done with a utility like `tr`, though I'm not sure how you'd go about doing something like that on Windows or Mac. I'm sure it's pretty simple and you can just Google something.
+Replies containing new lines have to be expressed in one line where each new line is replaced with `%%`. This can be done with a utility like `tr`, though I'm not sure how you'd go about doing something like that on Windows or Mac. I'm sure it's pretty simple to find how on Google.
 
 **User Specific Triggers**
 
@@ -60,7 +60,7 @@ The bottom reply block has variables in the triggers and responses. The `#un` ta
 
 **Replies on n Number of Triggers**
 
-The bottom reply block also has a flag on the bottom trigger to only reply when there are 5 messages containing the trigger from the same person. If used in combination with the send message tag, the order doesn't matter. So `<sm><12>` would be the same as `<12><sm>`.
+The bottom reply block also has a flag on the bottom trigger to only reply when there are 5 messages containing the trigger from the same person. If used in combination with the send message tag, the order doesn't matter. So `<sm><5>` would be the same as `<5><sm>`.
 
 Any regex string should work. Have a look at https://regex101.com/ or consult Google for more information on regexes.
 
