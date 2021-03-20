@@ -22,7 +22,7 @@ var trigThresh = [];
 var variables = [];
 var variablePosition = [];
 
-var userMatch, tempCount;
+var msgReplied, tempCount;
 
 for (const i in raw) {
 
@@ -117,6 +117,19 @@ var alternateCase = function (s) {
 
 async function replyFromArray(i, a, msg, user, variables) {
 
+    if (trigCount[i][a].includes(user)) {
+        const re = new RegExp(user+":"+"(\\d*)\;");
+        tempCount = Number(trigCount[i][a].match(re)[1]);
+        trigCount[i][a] = trigCount[i][a].replace(re, "");
+        tempCount++;
+    }
+
+    else tempCount = 1;
+
+    trigCount[i][a] = trigCount[i][a].concat(user+":"+tempCount+";");
+
+    if (tempCount % trigThresh[i][a] != 0) return;
+
     var replyIndex = replyCounter % replies[i].length;
     var response = replies[i][replyIndex];
     let msgReply = null;
@@ -134,7 +147,6 @@ async function replyFromArray(i, a, msg, user, variables) {
                 if (replies[i].length === 1) {
 
                     if (msg.reference === null) {
-                        console.log(trigs[i][a]);
                         msgReply = alternateCase(msg.content.replace(trigs[i][a], ""));
                     }
 
@@ -195,30 +207,15 @@ async function replyFromArray(i, a, msg, user, variables) {
 
             else msg.reply(msgReply);
 
-            userMatch = true;
+            msgReplied = true;
 
         }
 
     }
 
-    else userMatch = false;
+    else msgReplied = false;
 
     replyCounter++;
-}
-
-function countTrigger(i, a, user) {
-
-    if (trigCount[i][a].includes(user)) {
-        const re = new RegExp(user+":"+"(\\d*)\;");
-        tempCount = Number(trigCount[i][a].match(re)[1]);
-        trigCount[i][a] = trigCount[i][a].replace(re, "");
-        tempCount++;
-    }
-
-    else tempCount = 1;
-
-    trigCount[i][a] = trigCount[i][a].concat(user+":"+tempCount+";");
-
 }
 
 console.log("Ready");
@@ -226,6 +223,8 @@ console.log("Ready");
 client.on('message', async msg => {
 
     if (msg.author.bot) return;
+
+    msgReplied = false;
 
     var newMessage = msg.content.toLowerCase();
     var user = msg.author.username+"#"+msg.author.discriminator;
@@ -251,13 +250,9 @@ client.on('message', async msg => {
 
                 if (newMessage.match(regex)) {
 
-                    countTrigger(i, a, user);
+                    replyFromArray(i, a, msg, user);
 
-                    if (tempCount % trigThresh[i][a] === 0) {
-                        replyFromArray(i, a, msg, user);
-                    }
-
-                    if (userMatch === true) return;
+                    if (msgReplied === true) return;
 
                 }
 
@@ -295,11 +290,9 @@ client.on('message', async msg => {
                         if (!variables[b] || variables[b] === " ") return;
                     }
 
-                    countTrigger(i, a, user);
+                    replyFromArray(i, a, msg, user, variables);
 
-                    if (tempCount % trigThresh[i][a] === 0) {
-                        replyFromArray(i, a, msg, user, variables);
-                    }
+                    if (msgReplied === true) return;
 
                 }
 
