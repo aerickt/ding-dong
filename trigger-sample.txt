@@ -1,6 +1,5 @@
 NoTrigger;
 my disappointment is immeasurable
-(\$)(?!altme)([a-zA-Z]*)
 (that|which) is strong
 :nezudisappoint:
 is taller
@@ -9,7 +8,7 @@ is taller
 ‘
 
 <sm>alternate;
-\$altme
+#altme
 
 <sm>triggerlist;
 ^dd>trigger(s|)list$
@@ -45,12 +44,10 @@ is that an invitation
 
 No You Didn't;You Could Think?;Yeah Right;
 thats what i thought
-
-No You Weren't;Yeah Right;
 thats what i was thinking
 
-No You're Not;<sm>Uh Huh; Wrong;
-<sm>im right
+No You're Not;Uh Huh; Wrong;
+im right
 im correct
 
 But You Can Call Me Gay;
@@ -113,3 +110,7 @@ Have a good day; Have a nice day;
 
 Test Response;
 <sm><5>trigger number dependent test
+
+But I love #3 sodas, #1 fruits and #2 pizza;
+<sm><5>i like (.*)#1 fruits, (.*)#2 pizza, and (.*)#3 sodas
+This was just a silly test when I wasn working on variables.
