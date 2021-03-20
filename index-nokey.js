@@ -105,6 +105,9 @@ for (const i in replies) {
 
 }
 
+var totalTrig = String(trigs.reduce((count, row) => count + row.length, 0));
+var totalReply = String(replies.reduce((count, row) => count + row.length, 0));
+
 var alternateCase = function (s) {
     var chars = s.toLowerCase().split("");
 
@@ -168,7 +171,7 @@ async function replyFromArray(i, a, msg, user, variables) {
             }
 
             else if (response.includes("triggercount")) {
-                msgReply = totalTrig + " triggers and " + totalReply + " replies.";
+                msgReply = String(totalTrig + " triggers and " + totalReply + " replies.");
             }
 
             else if (response.includes("#")) {
