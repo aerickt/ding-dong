@@ -1,5 +1,3 @@
-const start = Date.now();
-
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -223,12 +221,7 @@ function countTrigger(i, a, user) {
 
 }
 
-var totalTrig = String(trigs.reduce((count, row) => count + row.length, 0));
-var totalReply = String(replies.reduce((count, row) => count + row.length, 0));
-
-var loadTime = Date.now() - start;
-
-console.log("Loaded " + totalTrig + " triggers and " + totalReply + " replies in " + loadTime + " ms.");
+console.log("Ready");
 
 client.on('message', async msg => {
 
@@ -247,8 +240,6 @@ client.on('message', async msg => {
         }
 
     }
-
-    console.log(newMessage);
 
     for (const i in trigs) {
 
