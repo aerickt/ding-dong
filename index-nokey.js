@@ -150,7 +150,7 @@ async function replyFromArray(i, a, msg, user, variables) {
                         msgReply = alternateCase(msg.content.replace(trigs[i][a], ""));
                     }
 
-                    else if (msg.reference !== null && replies[i].length === 1) {
+                    else {
                         var refMsg = await msg.channel.messages.fetch(msg.reference.messageID);
                         if (!refMsg.author.bot) msgReply = alternateCase(refMsg.content);
                     }
@@ -228,6 +228,8 @@ client.on('message', async msg => {
 
     var newMessage = msg.content.toLowerCase();
     var user = msg.author.username+"#"+msg.author.discriminator;
+
+    console.log(newMessage);
 
     fs.appendFileSync(ddhome+'/log.txt', newMessage+"\n");
 
