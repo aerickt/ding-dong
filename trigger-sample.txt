@@ -13,6 +13,9 @@ is taller
 <sm>triggerlist;
 ^dd>trigger(s|)list$
 
+<sm>triggercount;
+^dd>trig(ger(s|)|)count$
+
 Get Used To It;Haha suffer;Grow a Pair;
 i((?!dont|do not).)* hate it here
 
