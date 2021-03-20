@@ -145,7 +145,7 @@ async function replyFromArray(i, a, msg, user, variables) {
                 response = response.replace('%%', "\n");
             }
 
-            if (response.includes("alternate")) {
+            if (response === "alternate") {
 
                 if (replies[i].length === 1) {
 
@@ -166,11 +166,11 @@ async function replyFromArray(i, a, msg, user, variables) {
 
             }
 
-            else if (response.includes("triggerlist")) {
+            else if (response === "triggerlist") {
                 msgReply = { files: [ddhome+"/triggers.txt"] };
             }
 
-            else if (response.includes("triggercount")) {
+            else if (response === "triggercount") {
                 msgReply = String(totalTrig + " triggers and " + totalReply + " replies.");
             }
 
