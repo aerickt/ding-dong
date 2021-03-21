@@ -105,8 +105,6 @@ for (const i in replies) {
 
         if (replies[i][a] === "omit"){
             msgOmit = msgOmit.concat(trigs[i]);
-            //trigs = trigs.splice(i,1);
-            //replies = replies.splice(i,1);
         }
 
     }
@@ -230,8 +228,6 @@ async function replyFromArray(i, a, msg, user, variables) {
 }
 
 console.log("Ready");
-console.log(msgOmit);
-
 client.on('message', async msg => {
 
     if (msg.author.bot) return;
