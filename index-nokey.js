@@ -22,6 +22,8 @@ var trigThresh = [];
 var variables = [];
 var variablePosition = [];
 
+var msgOmit = [];
+
 var msgReplied, tempCount;
 
 for (const i in raw) {
@@ -99,6 +101,12 @@ for (const i in replies) {
         if (replies[i][a].includes("<sm>")) {
             replies[i][a] = replies[i][a].replace("<sm>", "");
             replyType[i][a] = "send";
+        }
+
+        if (replies[i][a] === "omit"){
+            msgOmit = msgOmit.concat(trigs[i]);
+            //trigs = trigs.splice(i,1);
+            //replies = replies.splice(i,1);
         }
 
     }
@@ -222,6 +230,7 @@ async function replyFromArray(i, a, msg, user, variables) {
 }
 
 console.log("Ready");
+console.log(msgOmit);
 
 client.on('message', async msg => {
 
@@ -232,18 +241,18 @@ client.on('message', async msg => {
     var newMessage = msg.content.toLowerCase();
     var user = msg.author.username+"#"+msg.author.discriminator;
 
-    console.log(newMessage);
-
     fs.appendFileSync(ddhome+'/log.txt', newMessage+"\n");
 
-    for (const i in trigs[0]) {
-        var noTrigger = new RegExp(trigs[0][i]);
+    for (const i in msgOmit) {
+        var omit = new RegExp(msgOmit[i]);
 
-        while (newMessage.match(noTrigger)) {
-            newMessage = newMessage.replace(noTrigger, "");
+        while (newMessage.match(msgOmit[i])) {
+            newMessage = newMessage.replace(msgOmit, "");
         }
 
     }
+
+    console.log(newMessage);
 
     for (const i in trigs) {
 
