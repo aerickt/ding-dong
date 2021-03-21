@@ -143,9 +143,9 @@ async function replyFromArray(i, a, msg, user, variables) {
     var response = replies[i][replyIndex];
     let msgReply = null;
 
-    if (userAllow[i] === "some"  || userAllow[i] === "all" || userAllow[i].includes(user)) {
+    if ((userAllow[i] === "some"  || userAllow[i] === "all" || userAllow[i].includes(user)) && !userReject[i].includes(user)) {
 
-        if (response != "NoTrigger" && !userReject[i].includes(user)){
+        if (response != "NoTrigger"){
 
             while (response.includes('%%')) {
                 response = response.replace('%%', "\n");
