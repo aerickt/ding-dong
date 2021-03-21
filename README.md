@@ -11,10 +11,14 @@ The minimum number of responses for each block is 1 and there is no maximum. The
 
 **Every reply line must end with a semicolon. Every trigger must be lower case.**
 
-The bot automatically converts every message to lower case and ignores apostrophes before comparing with the triggers. It does this by removing everything that is under the first response block (with the response of "NoTrigger") from the message before comparing the message. So for example, Ding Dong will see the message "I'm interested in drinks which are strong" as just: "im interested in drinks". As such, all the triggers should be lowercase, otherwise they will not work.
+The bot automatically converts every message to lower case and ignores everything under the "omit" reply. So for example, Ding Dong will see the message "I'm tall" as just: "im tall". As such, all the triggers should be lowercase and free of anything that's under "omit". The "NoTrigger" category is for stuff that ding dong will not remove from messages, but won't reply. I'm not sure if there is a case where I'd use NoTrigger over omit, but I've kept that in there just in case.
 
-    NoTrigger;
+    omit;
     '
+    ’
+    ‘
+    
+    NoTrigger;
     (that|which) is strong
     
     <sm>alternate;
