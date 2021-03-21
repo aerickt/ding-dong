@@ -228,6 +228,7 @@ async function replyFromArray(i, a, msg, user, variables) {
 }
 
 console.log("Ready");
+
 client.on('message', async msg => {
 
     if (msg.author.bot) return;
@@ -242,8 +243,8 @@ client.on('message', async msg => {
     for (const i in msgOmit) {
         var omit = new RegExp(msgOmit[i]);
 
-        while (newMessage.match(msgOmit[i])) {
-            newMessage = newMessage.replace(msgOmit, "");
+        while (newMessage.match(omit)) {
+            newMessage = newMessage.replace(omit, "");
         }
 
     }
