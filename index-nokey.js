@@ -147,42 +147,21 @@ async function replyFromArray(i, a, msg, user, variables) {
 
     if ((userAllow[i] === "some"  || userAllow[i] === "all" || userAllow[i].includes(user)) && !userReject[i].includes(user)) {
 
-        if (response != "NoTrigger"){
+        if (response != "NoTrigger") {
 
             while (response.includes('%%')) {
                 response = response.replace('%%', "\n");
             }
 
-            if (response === "alternate") {
-
-                if (replies[i].length === 1) {
-
-                    if (msg.reference === null) {
-                        msgReply = alternateCase(msg.content.replace(trigs[i][a], ""));
-                    }
-
-                    else {
-                        var refMsg = await msg.channel.messages.fetch(msg.reference.messageID);
-                        if (!refMsg.author.bot) msgReply = alternateCase(refMsg.content);
-                    }
-
-                }
-
-                else {
-                    msgReply = alternateCase(msg.content);
-                }
-
-            }
-
-            else if (response === "triggerlist") {
+            if (response === "triggerlist") {
                 msgReply = { files: [ddhome+"/triggers.txt"] };
             }
 
             else if (response === "triggercount") {
                 msgReply = String(totalTrig + " triggers and " + totalReply + " replies.");
             }
-            
-            else if (response === "trigtoggle") {
+
+            if (response === "trigtoggle") {
 
                 if (trigState === "on") trigState = "off";
 
@@ -193,9 +172,30 @@ async function replyFromArray(i, a, msg, user, variables) {
 
             }
 
-            if (trigState === "on") {
+            if (trigState === "on" && msgReplied != true) {
+                
+                if (response === "alternate") {
 
-                if (response.includes("#")) {
+                    if (replies[i].length === 1) {
+
+                        if (msg.reference === null) {
+                            msgReply = alternateCase(msg.content.replace(trigs[i][a], ""));
+                        }
+
+                        else {
+                            var refMsg = await msg.channel.messages.fetch(msg.reference.messageID);
+                            if (!refMsg.author.bot) msgReply = alternateCase(refMsg.content);
+                        }
+
+                    }
+
+                    else {
+                        msgReply = alternateCase(msg.content);
+                    }
+
+                }
+
+                else if (response.includes("#")) {
                     var variableCount = (response.match(/#/g) || []).length; 
                     msgReply = response;
 
@@ -227,12 +227,14 @@ async function replyFromArray(i, a, msg, user, variables) {
 
                 if (msgReply === "") return;
 
-                if (replyType[i][replyIndex] === "send" || trigType[i][a] === "send") msg.channel.send(msgReply);
+            }
 
+            if (msgReply !== null) {
+
+                if (replyType[i][replyIndex] === "send" || trigType[i][a] === "send") msg.channel.send(msgReply);
                 else msg.reply(msgReply);
 
                 msgReplied = true;
-
             }
 
         }
