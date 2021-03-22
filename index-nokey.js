@@ -128,6 +128,14 @@ var alternateCase = function (s) {
 
 async function replyFromArray(i, a, msg, user, variables) {
 
+    var b = replyCounter % replies[i].length;
+    var response = replies[i][b];
+    let msgReply = null;
+
+    while (response.includes('%%')) {
+        response = response.replace('%%', "\n");
+    }
+
     if (trigCount[i][a].includes(user)) {
         const re = new RegExp(user+":"+"(\\d*)\;");
         tempCount = Number(trigCount[i][a].match(re)[1]);
@@ -140,18 +148,12 @@ async function replyFromArray(i, a, msg, user, variables) {
     trigCount[i][a] = trigCount[i][a].concat(user+":"+tempCount+";");
 
     if (tempCount % trigThresh[i][a] != 0) return;
+    
+    if (userReject[i].includes(user)) return;
 
-    var replyIndex = replyCounter % replies[i].length;
-    var response = replies[i][replyIndex];
-    let msgReply = null;
+    if (userAllow[i] === "all" || userAllow[i].includes(user)) {
 
-    if ((userAllow[i] === "some"  || userAllow[i] === "all" || userAllow[i].includes(user)) && !userReject[i].includes(user)) {
-
-        if (response != "NoTrigger") {
-
-            while (response.includes('%%')) {
-                response = response.replace('%%', "\n");
-            }
+        if (response !== "NoTrigger") {
 
             if (response === "triggerlist") {
                 msgReply = { files: [ddhome+"/triggers.txt"] };
@@ -172,7 +174,7 @@ async function replyFromArray(i, a, msg, user, variables) {
 
             }
 
-            if (trigState === "on" && msgReplied != true) {
+            if (trigState === "on" && msgReply === null) {
                 
                 if (response === "alternate") {
 
@@ -231,17 +233,16 @@ async function replyFromArray(i, a, msg, user, variables) {
 
             if (msgReply !== null) {
 
-                if (replyType[i][replyIndex] === "send" || trigType[i][a] === "send") msg.channel.send(msgReply);
+                if ((replyType[i][b] || trigType[i][a]) === "send") msg.channel.send(msgReply);
                 else msg.reply(msgReply);
 
-                msgReplied = true;
             }
 
         }
 
-    }
+        msgReplied = true;
 
-    else msgReplied = false;
+    }
 
     replyCounter++;
 }
