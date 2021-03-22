@@ -26,6 +26,8 @@ var msgOmit = [];
 
 var msgReplied, tempCount;
 
+var trigState = "on";
+
 for (const i in raw) {
 
     if (raw[i] === "") {
@@ -179,44 +181,59 @@ async function replyFromArray(i, a, msg, user, variables) {
             else if (response === "triggercount") {
                 msgReply = String(totalTrig + " triggers and " + totalReply + " replies.");
             }
+            
+            else if (response === "trigtoggle") {
 
-            else if (response.includes("#")) {
-                var variableCount = (response.match(/#/g) || []).length; 
-                msgReply = response;
+                if (trigState === "on") trigState = "off";
 
-                for (var d = 0; d < variableCount; d++) {
-
-                    placeHolder = "#" + (d + 1).toString();
-
-                    while (msgReply.includes(placeHolder)) {
-                        msgReply = msgReply.replace(placeHolder,variables[d]);
-                    }
-
-                }
-
-                var userName = msg.author.username;
-
-                while (msgReply.includes("#un")) {
-                    msgReply = msgReply.replace("#un",userName);
-                }
-
-                var userPing = "<@!" + msg.author.id + ">"
-
-                while (msgReply.includes("#u")) {
-                    msgReply = msgReply.replace("#u",userPing);
+                else {
+                    trigState = "on";
+                    return;
                 }
 
             }
 
-            else msgReply = response;
+            if (trigState === "on") {
 
-            if (msgReply === "") return;
+                if (response.includes("#")) {
+                    var variableCount = (response.match(/#/g) || []).length; 
+                    msgReply = response;
 
-            if (replyType[i][replyIndex] === "send" || trigType[i][a] === "send") msg.channel.send(msgReply);
+                    for (var d = 0; d < variableCount; d++) {
 
-            else msg.reply(msgReply);
+                        placeHolder = "#" + (d + 1).toString();
 
-            msgReplied = true;
+                        while (msgReply.includes(placeHolder)) {
+                            msgReply = msgReply.replace(placeHolder,variables[d]);
+                        }
+
+                    }
+
+                    var userName = msg.author.username;
+
+                    while (msgReply.includes("#un")) {
+                        msgReply = msgReply.replace("#un",userName);
+                    }
+
+                    var userPing = "<@!" + msg.author.id + ">"
+
+                    while (msgReply.includes("#u")) {
+                        msgReply = msgReply.replace("#u",userPing);
+                    }
+
+                }
+
+                else msgReply = response;
+
+                if (msgReply === "") return;
+
+                if (replyType[i][replyIndex] === "send" || trigType[i][a] === "send") msg.channel.send(msgReply);
+
+                else msg.reply(msgReply);
+
+                msgReplied = true;
+
+            }
 
         }
 
