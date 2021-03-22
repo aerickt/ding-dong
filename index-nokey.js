@@ -22,7 +22,7 @@ var trigThresh = [];
 var variables = [];
 var variablePosition = [];
 
-var msgOmit = [];
+var omit = [];
 
 var msgReplied, tempCount;
 
@@ -106,7 +106,7 @@ for (const i in replies) {
         }
 
         if (replies[i][a] === "omit"){
-            msgOmit = msgOmit.concat(trigs[i]);
+            omit = omit.concat(trigs[i]);
         }
 
     }
@@ -260,13 +260,10 @@ client.on('message', async msg => {
 
     fs.appendFileSync(ddhome+'/log.txt', newMessage+"\n");
 
-    for (const i in msgOmit) {
-        var omit = new RegExp(msgOmit[i]);
-
-        while (newMessage.match(omit)) {
-            newMessage = newMessage.replace(omit, "");
+    for (const i in omit) {
+        while (newMessage.match(omit[i])) {
+            newMessage = newMessage.replace(omit[i], "");
         }
-
     }
 
     console.log(newMessage);
@@ -280,11 +277,7 @@ client.on('message', async msg => {
                 regex = new RegExp(regex);
 
                 if (newMessage.match(regex)) {
-
                     replyFromArray(i, a, msg, user);
-
-                    if (msgReplied === true) return;
-
                 }
 
             }
@@ -323,11 +316,11 @@ client.on('message', async msg => {
 
                     replyFromArray(i, a, msg, user, variables);
 
-                    if (msgReplied === true) return;
-
                 }
 
             }
+
+            if (msgReplied === true) return;
 
         }
 
