@@ -43,9 +43,7 @@ for (const i in trigs) {
     replies[i] = trigs[i][0];
     trigs[i].shift();
 
-    if (!trigs[i][0].match(/u(!|)>/)) {
-        userAllow[i] = "all";
-    }
+    if (!trigs[i][0].match(/u(!|)>/)) userAllow[i] = "all";
 
     else if (trigs[i][0].includes("u>")) {
         userAllow[i] = trigs[i][0].replace("u>", "");
@@ -165,10 +163,14 @@ async function replyFromArray(i, a, msg, user, variables) {
 
             if (response === "trigtoggle") {
 
-                if (trigState === "on") trigState = "off";
+                if (trigState === "on") {
+                    trigState = "off";
+                    msg.channel.send("Auto reply turned off");
+                }
 
                 else {
                     trigState = "on";
+                    msg.channel.send("Auto reply turned on");
                     return;
                 }
 
