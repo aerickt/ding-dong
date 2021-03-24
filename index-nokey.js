@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const config = require("./config.json");
 
 var fs = require("fs");
-var raw = fs.readFileSync(ddhome+"/triggers.txt", "utf-8").split("\n");
+var raw = fs.readFileSync("./triggers.txt", "utf-8").split("\n");
 
 var arrayIndex, beginElement, replyCounter;
 arrayIndex = beginElement = replyCounter = 0;
@@ -154,7 +155,7 @@ async function replyFromArray(i, a, msg, user, variables) {
         if (response !== "NoTrigger") {
 
             if (response === "triggerlist") {
-                msgReply = { files: [ddhome+"/triggers.txt"] };
+                msgReply = { files: ["./triggers.txt"] };
             }
 
             else if (response === "triggercount") {
@@ -260,7 +261,7 @@ client.on('message', async msg => {
     var newMessage = msg.content.toLowerCase();
     var user = msg.author.username+"#"+msg.author.discriminator;
 
-    fs.appendFileSync(ddhome+'/log.txt', newMessage+"\n");
+    fs.appendFileSync('./log.txt', newMessage+"\n");
 
     for (const i in omit) {
         while (newMessage.match(omit[i])) {
@@ -329,3 +330,5 @@ client.on('message', async msg => {
     }
 
 });
+
+client.login(config.TOKEN);

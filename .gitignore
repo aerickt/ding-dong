@@ -1,7 +1,5 @@
 log.txt
-index.js
 triggers.txt
-priv.txt
 node_modules/
 node_modules/*
 package.json
@@ -9,3 +7,5 @@ package-lock.json
 .triggers.txt.kate-swp
 *.kate-swp
 config.json
+.Trash-1000/*
+.Trash-1000
