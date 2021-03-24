@@ -80,4 +80,4 @@ Afterwards, create a file called `config.json` (make sure it is actually a .json
         "TOKEN": "<your token>"
     }
 
-You'll also need to create your own trigger file (called triggers.txt) and populate it with your own triggers. Run `node index.js` and you're done. You can use `screen` or systemd to have it run in the background if you're on Linux (using start.sh).
+You'll also need to create your own trigger file (called triggers.txt) and populate it with your own triggers. Run `node index.js` and you're done. You can use `screen` or systemd to have it run in the background if you're on Linux.
