@@ -8,3 +8,4 @@ package.json
 package-lock.json
 .triggers.txt.kate-swp
 *.kate-swp
+config.json
