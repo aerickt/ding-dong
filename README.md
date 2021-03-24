@@ -74,7 +74,7 @@ I've also provided a sample of a trigger file which is mainly clean and free of 
 
 First clone the repo and then install discord.js inside the directory: `npm install discord.js`.
 
-Afterwards, create a file called `config.json` (make sure it is actually a .json file and not a .txt file or anything else). Copy and paste the following into it and replace "<your token>" with the token of your bot.
+Afterwards, create a file called `config.json` (make sure it is actually a .json file and not a .txt file or anything else). Copy and paste the following into it and replace "\<your token\>" with the token of your bot.
 
     {
         "TOKEN": "<your token>"
