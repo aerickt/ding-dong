@@ -81,3 +81,5 @@ Afterwards, create a file called `config.json` (make sure it is actually a .json
     }
 
 Run `node index-nokey.js` and you're done.
+
+You'll also need to create your own trigger file (called triggers.txt) and populate it with your own triggers.
