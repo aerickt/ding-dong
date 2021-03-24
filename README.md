@@ -77,7 +77,7 @@ First clone the repo and then install discord.js inside the directory: `npm inst
 Afterwards, create a file called `config.json` (make sure it is actually a .json file and not a .txt file or anything else). Copy and paste the following into it and replace "<your token>" with the token of your bot.
 
     {
-    "TOKEN": "<your token>"
+        "TOKEN": "<your token>"
     }
 
 Run `node index-nokey.js` and you're done.
