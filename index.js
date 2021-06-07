@@ -119,6 +119,10 @@ var alternateCase = function (s) {
     var chars = s.toLowerCase().split("");
 
     for (var i = 0; i < chars.length; i += 2) {
+        if (chars[i] == " " || chars[i-1] == " ") {
+            i -= 1;
+            continue;
+        }
         chars[i] = chars[i].toUpperCase();
     }
 
