@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require("./config.json");
+require('discord-reply');
 
 var fs = require("fs");
 var raw = fs.readFileSync("./triggers.txt", "utf-8").split("\n");
@@ -241,7 +242,7 @@ async function replyFromArray(i, a, msg, user, variables) {
             if (msgReply !== null) {
 
                 if ((replyType[i][b] || trigType[i][a]) === "send") msg.channel.send(msgReply);
-                else msg.reply(msgReply);
+                else msg.lineReplyNoMention(msgReply);
 
             }
 
